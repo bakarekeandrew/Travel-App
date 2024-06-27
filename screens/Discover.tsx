@@ -19,12 +19,13 @@ interface Data {
   photo?: Photo;
   name?: string;
   location_string?: string;
+  attractions?: string;
 }
 
 const Discover = () => {
   const navigation = useNavigation();
 
-  const [type, setType] = useState("Restaurants");
+  const [type, setType] = useState("restaurants");
   const [isLoading, setIsLoading] = useState(false);
   const [mainData, setMainData] = useState<Data[]>([]);
 
@@ -36,13 +37,13 @@ const Discover = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getPlaceData().then((data) => {
+    getPlaceData(type).then((data) => {
       setMainData(data);
       setTimeout(() => {
         setIsLoading(false);
       }, 200);
     });
-  }, []);
+  }, [type]);
 
   return (
     <SafeAreaView className="pt-14 pl-[1px] flex-1 bg-white relative">
@@ -87,19 +88,22 @@ const Discover = () => {
       ) : (
         <ScrollView>
           <View className="flex-row items-center justify-between px-8 mt-3">
-            <MenuContainer 
+            <MenuContainer
+              key={hotels} 
               title="Hotels"
               ImageSrc={require("../assets/hotel.png")}
               type={type}
               setType={setType}
             />
             <MenuContainer 
+              key={attractions}
               title="Attractions"
               ImageSrc={require("../assets/attractions.png")}
               type={type}
               setType={setType}
             />
             <MenuContainer 
+              key="restaurants"
               title="Restaurants"
               ImageSrc={require("../assets/restoImg.png")}
               type={type}
@@ -128,6 +132,8 @@ const Discover = () => {
                     }
                     title={data?.name ?? ''}
                     location={data?.location_string ?? ''}
+                    data={data}
+                    // onPress={() => navigation.navigate('ItemScreen', { param: data })}f
                   />
                 ))
               ) : (

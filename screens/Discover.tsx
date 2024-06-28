@@ -1,11 +1,19 @@
-import { View, Text, SafeAreaView, TouchableOpacity, Image, ScrollView, ActivityIndicator } from 'react-native';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import MenuContainer from '../components/MenuContainer';
-import { AntDesign } from '@expo/vector-icons';
-import ItemCardContainer from '../components/ItemCardContainer';
-import { getPlaceData } from '../api/Index';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import MenuContainer from "../components/MenuContainer";
+import { AntDesign } from "@expo/vector-icons";
+import ItemCardContainer from "../components/ItemCardContainer";
+import { getPlaceData } from "../api/Index";
 
 interface Photo {
   images: {
@@ -19,7 +27,6 @@ interface Data {
   photo?: Photo;
   name?: string;
   location_string?: string;
-  attractions?: string;
 }
 
 const Discover = () => {
@@ -50,7 +57,8 @@ const Discover = () => {
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("Home");
-        }}>
+        }}
+      >
         <Text className="text-xl text-[#00BCC9]">👈Back</Text>
       </TouchableOpacity>
 
@@ -60,7 +68,7 @@ const Discover = () => {
           <Text className="text-[#527283] text-[33px] pb-4">the beauty today</Text>
         </View>
         <View className="w-[50px] h-[50px] bg-gray-400 rounded-md items-center justify-center shadow-lg">
-          <Image 
+          <Image
             source={require("../assets/Avatar.png")}
             className="w-full h-full rounded-md object-cover"
           />
@@ -69,14 +77,14 @@ const Discover = () => {
 
       <View className="flex-row items-center bg-gray mx-4 rounded-xl py-1 px-4 shadow-lg" style={{ elevation: 10 }}>
         <GooglePlacesAutocomplete
-          placeholder='Search'
+          placeholder="Search"
           onPress={(data, details = null) => {
             // 'details' is provided when fetchDetails = true
-            console.log(data, details);
+            // console.log(data, details);
           }}
           query={{
-            key: 'YOUR API KEY',
-            language: 'en',
+            key: "YOUR API KEY",
+            language: "en",
           }}
         />
       </View>
@@ -89,30 +97,33 @@ const Discover = () => {
         <ScrollView>
           <View className="flex-row items-center justify-between px-8 mt-3">
             <MenuContainer
-              key={hotels} 
+              key={"hotels"}
               title="Hotels"
-              ImageSrc={require("../assets/hotel.png")}
+              ImageSrc={require("../assets/hot.png")}
               type={type}
               setType={setType}
+              isActive={type === "hotels"}
             />
-            <MenuContainer 
-              key={attractions}
+            <MenuContainer
+              key={"attractions"}
               title="Attractions"
-              ImageSrc={require("../assets/attractions.png")}
+              ImageSrc={require("../assets/att.png")}
               type={type}
               setType={setType}
+              isActive={type === "attractions"}
             />
-            <MenuContainer 
-              key="restaurants"
+            <MenuContainer
+              key={"restaurants"}
               title="Restaurants"
-              ImageSrc={require("../assets/restoImg.png")}
+              ImageSrc={require("../assets/rest.png")}
               type={type}
               setType={setType}
+              isActive={type === "restaurants"}
             />
           </View>
 
           <View>
-            <View className="flex-row justify-between mt-4 px-4 items-center ">
+            <View className="flex-row justify-between mt-4 px-4 items-center">
               <Text className="text-[24px] text-[#2C7379] font-bold">Top Tips</Text>
               <TouchableOpacity className="flex-row items-center justify-center space-x-1">
                 <Text className="text-[17px] text-[#A0C4C7]">Explore</Text>
@@ -130,21 +141,16 @@ const Discover = () => {
                         ? { uri: data.photo.images.medium.url }
                         : require("../assets/emojii.png")
                     }
-                    title={data?.name ?? ''}
-                    location={data?.location_string ?? ''}
+                    title={data?.name ?? ""}
+                    location={data?.location_string ?? ""}
                     data={data}
-                    // onPress={() => navigation.navigate('ItemScreen', { param: data })}f
+                    onPress={() => navigation.navigate("ItemScreen", { param: data })}
                   />
                 ))
               ) : (
                 <View className="w-full h-[350px] items-center space-y-5 justify-center">
-                  <Image 
-                    source={require("../assets/download.png")}         
-                    className="w-400 h-400"
-                  />
-                  <Text className="text-2xl text-[#428288] font-semibold">
-                    Ooops...No Data Found
-                  </Text>
+                  <Image source={require("../assets/download.png")} className="w-400 h-400" />
+                  <Text className="text-2xl text-[#428288] font-semibold">Ooops...No Data Found</Text>
                 </View>
               )}
             </View>
@@ -152,7 +158,7 @@ const Discover = () => {
         </ScrollView>
       )}
     </SafeAreaView>
-  )
-}
+  );
+};
 
 export default Discover;

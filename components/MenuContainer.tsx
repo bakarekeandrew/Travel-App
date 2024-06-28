@@ -8,9 +8,11 @@ type MenuContainerProps = {
     ImageSrc: ImageSourcePropType;
     type: string;
     setType: React.Dispatch<React.SetStateAction<string>>;
+    isActive: boolean;
+    
   };
   
-  const MenuContainer: React.FC<MenuContainerProps> = ({ title, ImageSrc, type, setType }) => {
+  const MenuContainer: React.FC<MenuContainerProps> = ({ title, ImageSrc, type, setType, isActive }) => {
     const handlePress = () => {
        setType(title.toLowerCase());
     };

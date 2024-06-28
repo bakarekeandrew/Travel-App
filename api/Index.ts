@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export const getPlaceData = async (type:String) => {
+export const getPlaceData = async (type: String) => {
     try {
         const{data : {data}} =  await axios.get(
-          'https://travel-advisor.p.rapidapi.com/${type}/list-in-boundary',
+          `https://travel-advisor.p.rapidapi.com/${type}/list-in-boundary`,
           {
             params: {
                 bl_latitude: '25.15543993776612',
@@ -16,7 +16,7 @@ export const getPlaceData = async (type:String) => {
                 lang: 'en_US'
               },
               headers: {
-                'x-rapidapi-key': 'fa7d37782amsh037fd3a2d7d1555p1a6825jsn590494adfbd5',
+                'x-rapidapi-key': '1dba4351dbmshea82d85beb48662p1978b0jsnb4f85b77adb6',             
                 'x-rapidapi-host': 'travel-advisor.p.rapidapi.com'
               },
           }  
